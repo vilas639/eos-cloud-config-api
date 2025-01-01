@@ -1,0 +1,47 @@
+spring:
+  boot:
+    admin:
+      client:
+        url: http://localhost:8090
+        instance:
+          service-base-url: http://localhost:8888
+  application:
+    name: eos-cloud-config-api
+  config:
+    import:
+      - "classpath:application_prod.yaml"
+      - "classpath:application_qa.yaml"
+      - "classpath:application_uat.yaml"
+  profiles:
+      active: uat
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/vilas639/eos-cloud-config-repo
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+    registerWithEureka: true
+    fetchRegistry: true
+    enabled: true
+  instance:
+    instanceId: ${spring.application.name}:${server.port}
+    hostname: localhost
+    preferIpAddress: false
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+  security:
+    enabled: false
+
+server:
+  port: 8888

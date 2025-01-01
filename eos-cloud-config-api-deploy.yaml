@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: eos-cloud-config-api
+  namespace: uat
+  labels:
+    app: eos-cloud-config-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: eos-cloud-config-api
+  template:
+    metadata:
+      labels:
+        app: eos-cloud-config-api
+    spec:
+      containers:
+      - name: eos-cloud-config-api
+        image: docker.io/vilasjdhv639/eos-cloud-config-api:latest
+        ports:
+        - containerPort: 8888
